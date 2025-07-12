@@ -1,0 +1,59 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1812                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+
+FoamFile {
+  version 4.0;
+  format ascii;
+  class dictionary;
+  object windkesselProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ICA {
+  Z 0.1;    // commonly R_1 or R_proximal
+  C 0.5;
+  R 2;   // commonly R_2 or R_distal
+  physiologicalUnits true;
+
+  // NOTE: Set this to true to use physiological units [mmHg.ml^-1.s] and [ml.mmHg^-1]
+  //       if this is false, then SI units are used. Physiological units are converted
+  //       at runtime.
+
+  outIndex 0; // must equal 'index' value in 0/p
+  FDM_order 1;
+  // backward difference order: up to 3rd order
+
+  // Initialise WK parameters
+  // also useful to set initial condidions to speed up pressure development
+  Flowrate_threeStepBefore 0;
+  Flowrate_twoStepBefore 0;
+  Flowrate_oneStepBefore 0;
+  // NOTE: these pressures are in [Pa]!
+  Pressure_twoStepBefore 9000;
+  Pressure_oneStepBefore 9000;
+  Pressure_start 9000;
+}
+
+ECA {
+  Z 0.2;
+  C 1.5;
+  R 0.6;
+  physiologicalUnits true;
+
+  outIndex 1;
+  FDM_order 1;
+  Flowrate_threeStepBefore 0;
+  Flowrate_twoStepBefore 0;
+  Flowrate_oneStepBefore 0;
+  Pressure_twoStepBefore 9000;
+  Pressure_oneStepBefore 9000;
+  Pressure_start 9000;
+}
+
+// ************************************************************************* //
